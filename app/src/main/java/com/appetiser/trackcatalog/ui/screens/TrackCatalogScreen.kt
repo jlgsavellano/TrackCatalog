@@ -1,0 +1,72 @@
+package com.appetiser.trackcatalog.ui.screens
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.appetiser.trackcatalog.ui.components.SearchBar
+import com.appetiser.trackcatalog.ui.components.TrackList
+import com.appetiser.trackcatalog.viewmodel.TrackViewModel
+
+@Composable
+fun TrackCatalogScreen(
+    navController: NavController,
+    viewModel: TrackViewModel = hiltViewModel()
+) {
+    val tracks by viewModel.tracks.observeAsState(emptyList())
+    var searchQuery by remember { mutableStateOf("") }
+    var isFocused by remember { mutableStateOf(false) }
+
+    val filteredTracks = tracks.filter { track ->
+        track.name.contains(searchQuery, ignoreCase = true) or
+                track.genre.contains(searchQuery, ignoreCase = true)
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.initializeTracks("star")
+    }
+
+    val focusManager = LocalFocusManager.current
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .pointerInput(Unit) {
+                detectTapGestures {
+                    focusManager.clearFocus()
+                }
+            }
+    ) {
+
+        Column {
+            SearchBar(
+                query = searchQuery,
+                onQueryChange = { query ->
+                    searchQuery = query
+                },
+                onFocusChange = { state ->
+                    isFocused = state.isFocused
+                }
+            )
+
+            if (!isFocused || searchQuery.isNotEmpty()) {
+                TrackList(filteredTracks, navController)
+            }
+        }
+    }
+}
