@@ -1,6 +1,8 @@
 package com.appetiser.trackcatalog.data.repository
 
 import com.appetiser.trackcatalog.data.api.AppleApiService
+import com.appetiser.trackcatalog.data.api.Result
+import com.appetiser.trackcatalog.data.api.safeApiCall
 import com.appetiser.trackcatalog.data.db.Track
 import com.appetiser.trackcatalog.data.db.TrackDao
 import javax.inject.Inject
@@ -14,15 +16,11 @@ class TrackRepository @Inject constructor(
 ) {
 
     suspend fun searchTracks(term: String, country: String): List<Track> {
-        val response = apiService.search(term, country, media = "movie")
-
-        if (response.isSuccessful) {
-            return response.body()?.result?.also { tracks ->
-                dao.insertAll(tracks)
-            } ?: emptyList()
+        val response = safeApiCall { apiService.search(term, country, media = "movie") }
+        return when (response) {
+            is Result.Success -> response.data.result.also { tracks -> dao.insertAll(tracks) }
+            is Result.Error -> emptyList()
         }
-
-        return emptyList()
     }
 
     suspend fun getAllTracks(country: String): List<Track> = dao.getAllTracks("%$country%")

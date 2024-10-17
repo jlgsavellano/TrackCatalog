@@ -18,9 +18,12 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.appetiser.trackcatalog.data.db.Track
 import com.appetiser.trackcatalog.ui.components.SearchBar
 import com.appetiser.trackcatalog.ui.components.TrackList
 import com.appetiser.trackcatalog.viewmodel.TrackViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 
 @Composable
 fun TrackCatalogScreen(
@@ -28,16 +31,22 @@ fun TrackCatalogScreen(
     viewModel: TrackViewModel = hiltViewModel()
 ) {
     val tracks by viewModel.tracks.observeAsState(emptyList())
+    var filteredTracks by remember { mutableStateOf(emptyList<Track>()) }
     var searchQuery by remember { mutableStateOf("") }
     var isFocused by remember { mutableStateOf(false) }
 
-    val filteredTracks = tracks.filter { track ->
-        track.name.contains(searchQuery, ignoreCase = true) or
-                track.genre.contains(searchQuery, ignoreCase = true)
-    }
+    viewModel.initializeTracks("star")
 
-    LaunchedEffect(Unit) {
-        viewModel.initializeTracks("star")
+    LaunchedEffect(tracks, searchQuery) {
+        coroutineScope {
+            if (searchQuery.isNotEmpty())
+                delay(1000)
+
+            filteredTracks = tracks.filter { track ->
+                track.name.contains(searchQuery, ignoreCase = true) or
+                        track.genre.contains(searchQuery, ignoreCase = true)
+            }
+        }
     }
 
     val focusManager = LocalFocusManager.current
@@ -53,6 +62,7 @@ fun TrackCatalogScreen(
             }
     ) {
 
+
         Column {
             SearchBar(
                 query = searchQuery,
@@ -63,8 +73,7 @@ fun TrackCatalogScreen(
                     isFocused = state.isFocused
                 }
             )
-
-            if (!isFocused || searchQuery.isNotEmpty()) {
+            if (!isFocused or searchQuery.isNotEmpty()) {
                 TrackList(filteredTracks, navController)
             }
         }
