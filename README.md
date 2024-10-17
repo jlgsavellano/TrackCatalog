@@ -7,6 +7,7 @@ Sample project in Kotlin Android, using these tech. stacks:
 - Room
 - Retrofit
 - DaggerHilt
+- BitRise: https://app.bitrise.io/app/b28fffa9-8818-41ca-99a8-4c39cb5aea7d
 
 ## Screenshots
 <p>
