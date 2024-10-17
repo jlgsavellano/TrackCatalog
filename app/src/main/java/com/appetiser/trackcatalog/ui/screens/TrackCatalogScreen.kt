@@ -62,7 +62,6 @@ fun TrackCatalogScreen(
             }
     ) {
 
-
         Column {
             SearchBar(
                 query = searchQuery,
