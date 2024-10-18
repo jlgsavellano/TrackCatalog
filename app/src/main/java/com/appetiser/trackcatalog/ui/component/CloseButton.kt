@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.components
+package com.appetiser.trackcatalog.ui.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close

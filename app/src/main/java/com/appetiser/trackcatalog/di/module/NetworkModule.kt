@@ -1,7 +1,7 @@
-package com.appetiser.trackcatalog.di
+package com.appetiser.trackcatalog.di.module
 
 import com.appetiser.trackcatalog.BuildConfig
-import com.appetiser.trackcatalog.data.api.AppleApiService
+import com.appetiser.trackcatalog.data.remote.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,8 +28,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAppleApiService(retrofit: Retrofit): AppleApiService =
-        retrofit.create(AppleApiService::class.java)
+    fun provideAppleApiService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 
 
 }

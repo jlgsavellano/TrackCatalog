@@ -1,18 +1,16 @@
-package com.appetiser.trackcatalog.ui.components
+package com.appetiser.trackcatalog.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -21,15 +19,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.appetiser.trackcatalog.data.db.Track
+import com.appetiser.trackcatalog.data.local.entity.Track
 
 @Composable
-fun TrackArtwork(
+fun TrackBanner(
     track: Track,
+    onToggleFavorite: () -> Unit,
     modifier: Modifier = Modifier
-        .width(150.dp)
-        .height(200.dp),
-    corner: Float = 16f
+        .fillMaxWidth()
+        .height(400.dp)
 ) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
@@ -41,7 +39,6 @@ fun TrackArtwork(
 
     Surface(
         modifier = modifier
-            .clip(RoundedCornerShape(corner.dp))
             .background(Color.Gray)
     ) {
         Box(
@@ -58,9 +55,13 @@ fun TrackArtwork(
                 painter = painter,
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
-            TrackFavorite(track, Modifier.align(Alignment.TopEnd))
+            TrackFavorite(
+                track = track,
+                onToggle = onToggleFavorite,
+                modifier = Modifier.align(Alignment.TopEnd)
+            )
         }
     }
 }

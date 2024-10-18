@@ -1,6 +1,6 @@
-package com.appetiser.trackcatalog.data.api
+package com.appetiser.trackcatalog.data.remote.response
 
-import com.appetiser.trackcatalog.data.db.Track
+import com.appetiser.trackcatalog.data.local.entity.Track
 import com.google.gson.annotations.SerializedName
 
 /**

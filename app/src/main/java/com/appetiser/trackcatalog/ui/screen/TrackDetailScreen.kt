@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.screens
+package com.appetiser.trackcatalog.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,17 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.appetiser.trackcatalog.data.db.Track
-import com.appetiser.trackcatalog.ui.components.CloseButton
-import com.appetiser.trackcatalog.ui.components.TrackBanner
-import com.appetiser.trackcatalog.ui.components.TrackContent
-import com.appetiser.trackcatalog.viewmodel.TrackViewModel
+import com.appetiser.trackcatalog.data.local.entity.Track
+import com.appetiser.trackcatalog.ui.component.CloseButton
+import com.appetiser.trackcatalog.ui.component.TrackBanner
+import com.appetiser.trackcatalog.ui.component.TrackContent
 
 @Composable
 fun TrackDetailScreen(
     navController: NavController,
     trackId: Long,
-    viewModel: TrackViewModel = hiltViewModel()
+    viewModel: TrackDetailViewModel = hiltViewModel()
 ) {
     val track by viewModel.track.observeAsState(Track())
 
@@ -36,7 +35,12 @@ fun TrackDetailScreen(
     ) {
         Column {
             Box {
-                TrackBanner(track)
+                TrackBanner(
+                    track = track,
+                    onToggleFavorite = {
+                        viewModel.setFavoriteTrack(track.copy(isFavorite = !track.isFavorite))
+                    }
+                )
                 CloseButton(navController, Modifier.align(Alignment.TopStart))
             }
 

@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.components
+package com.appetiser.trackcatalog.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.appetiser.trackcatalog.data.db.Track
+import com.appetiser.trackcatalog.data.local.entity.Track
 import java.util.Locale
 
 @Composable

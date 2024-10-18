@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.components
+package com.appetiser.trackcatalog.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions

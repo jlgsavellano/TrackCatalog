@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.di
+package com.appetiser.trackcatalog.di.module
 
 import android.app.Application
 import android.content.Context

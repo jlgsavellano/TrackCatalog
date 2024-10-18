@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.components
+package com.appetiser.trackcatalog.ui.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme

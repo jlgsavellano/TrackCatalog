@@ -12,7 +12,7 @@
         android:theme="@style/Theme.TrackCatalog">
 
         <activity
-            android:name=".ui.screens.MainActivity"
+            android:name=".ui.screen.MainActivity"
             android:exported="true">
 
             <intent-filter>

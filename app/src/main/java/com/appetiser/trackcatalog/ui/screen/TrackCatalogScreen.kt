@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.screens
+package com.appetiser.trackcatalog.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -18,17 +18,16 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.appetiser.trackcatalog.data.db.Track
-import com.appetiser.trackcatalog.ui.components.SearchBar
-import com.appetiser.trackcatalog.ui.components.TrackList
-import com.appetiser.trackcatalog.viewmodel.TrackViewModel
+import com.appetiser.trackcatalog.data.local.entity.Track
+import com.appetiser.trackcatalog.ui.component.SearchBar
+import com.appetiser.trackcatalog.ui.component.TrackList
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 
 @Composable
 fun TrackCatalogScreen(
     navController: NavController,
-    viewModel: TrackViewModel = hiltViewModel()
+    viewModel: TrackCatalogViewModel = hiltViewModel()
 ) {
     val tracks by viewModel.tracks.observeAsState(emptyList())
     var filteredTracks by remember { mutableStateOf(emptyList<Track>()) }
@@ -73,7 +72,13 @@ fun TrackCatalogScreen(
                 }
             )
             if (!isFocused or searchQuery.isNotEmpty()) {
-                TrackList(filteredTracks, navController)
+                TrackList(
+                    tracks = filteredTracks,
+                    onToggleFavorite = { track ->
+                        viewModel.setFavoriteTrack(track.copy(isFavorite = !track.isFavorite))
+                    },
+                    navController = navController
+                )
             }
         }
     }

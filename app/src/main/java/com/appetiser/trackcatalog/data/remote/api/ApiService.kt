@@ -1,5 +1,6 @@
-package com.appetiser.trackcatalog.data.api
+package com.appetiser.trackcatalog.data.remote.api
 
+import com.appetiser.trackcatalog.data.remote.response.TrackResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -8,7 +9,7 @@ import retrofit2.http.Query
  * Declaration of API endpoints
  * Using Retrofit for consuming REST APIs
  */
-interface AppleApiService {
+interface ApiService {
 
     @GET("search")
     suspend fun search(

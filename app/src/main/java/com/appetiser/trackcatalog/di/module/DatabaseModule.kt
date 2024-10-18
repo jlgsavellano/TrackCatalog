@@ -1,9 +1,9 @@
-package com.appetiser.trackcatalog.di
+package com.appetiser.trackcatalog.di.module
 
 import android.content.Context
 import androidx.room.Room
-import com.appetiser.trackcatalog.data.db.AppDatabase
-import com.appetiser.trackcatalog.data.db.TrackDao
+import com.appetiser.trackcatalog.data.local.dao.TrackDao
+import com.appetiser.trackcatalog.data.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

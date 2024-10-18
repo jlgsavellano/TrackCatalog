@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.screens
+package com.appetiser.trackcatalog.ui.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

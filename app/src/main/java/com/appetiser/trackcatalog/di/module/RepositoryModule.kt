@@ -1,7 +1,7 @@
-package com.appetiser.trackcatalog.di
+package com.appetiser.trackcatalog.di.module
 
-import com.appetiser.trackcatalog.data.api.AppleApiService
-import com.appetiser.trackcatalog.data.db.TrackDao
+import com.appetiser.trackcatalog.data.remote.api.ApiService
+import com.appetiser.trackcatalog.data.local.dao.TrackDao
 import com.appetiser.trackcatalog.data.repository.TrackRepository
 import dagger.Module
 import dagger.Provides
@@ -19,6 +19,6 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideTrackRepository(apiService: AppleApiService, dao: TrackDao): TrackRepository =
+    fun provideTrackRepository(apiService: ApiService, dao: TrackDao): TrackRepository =
         TrackRepository(apiService, dao)
 }

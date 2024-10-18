@@ -1,4 +1,4 @@
-package com.appetiser.trackcatalog.ui.components
+package com.appetiser.trackcatalog.ui.component
 
 
 import androidx.compose.material.icons.Icons
@@ -9,21 +9,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.appetiser.trackcatalog.data.db.Track
+import com.appetiser.trackcatalog.data.local.entity.Track
 import com.appetiser.trackcatalog.ui.theme.Red
-import com.appetiser.trackcatalog.viewmodel.TrackViewModel
 
 @Composable
 fun TrackFavorite(
     track: Track,
-    modifier: Modifier = Modifier,
-    viewModel: TrackViewModel = hiltViewModel()
+    onToggle: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     IconButton(
-        onClick = {
-            viewModel.setFavoriteTrack(track.copy(isFavorite = !track.isFavorite))
-        },
+        onClick = onToggle,
         modifier = modifier
     ) {
         if (track.isFavorite) {
