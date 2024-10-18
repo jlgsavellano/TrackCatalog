@@ -18,3 +18,6 @@ Sample project in Kotlin Android, using these tech. stacks:
   <img src="https://github.com/jlgsavellano/TrackCatalog/blob/main/screenshots/SAMPLE_2.png" width="200" />
   <img src="https://github.com/jlgsavellano/TrackCatalog/blob/main/screenshots/SAMPLE_3.png" width="200" />
 </div>
+<br />
+
+While this project demonstrates the core functionalities, there are several areas that require enhancement, particularly in the user interface. Future iterations will focus on refining the UI to enhance usability and overall user experience.
