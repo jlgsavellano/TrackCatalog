@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appetiser.trackcatalog.data.local.entity.Track
 import com.appetiser.trackcatalog.data.repository.TrackRepository
+import com.appetiser.trackcatalog.utils.DateUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 /**
@@ -15,7 +17,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TrackCatalogViewModel @Inject constructor(
-    private val repository: TrackRepository
+    private val repository: TrackRepository,
+    private val dateUtil: DateUtil
 ): ViewModel() {
 
     private val _tracks = MutableLiveData<List<Track>>()
@@ -34,4 +37,10 @@ class TrackCatalogViewModel @Inject constructor(
             _tracks.value = repository.getAllTracks(track.country)
         }
     }
+
+    fun updateLastVisited() {
+        dateUtil.lastVisit = Date()
+    }
+
+    fun getLastVisited(): Date? = dateUtil.lastVisit
 }

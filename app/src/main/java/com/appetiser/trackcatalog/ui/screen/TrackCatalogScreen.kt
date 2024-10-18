@@ -2,10 +2,10 @@ package com.appetiser.trackcatalog.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,8 +33,13 @@ fun TrackCatalogScreen(
     var filteredTracks by remember { mutableStateOf(emptyList<Track>()) }
     var searchQuery by remember { mutableStateOf("") }
     var isFocused by remember { mutableStateOf(false) }
+    val lastVisited by remember { mutableStateOf(viewModel.getLastVisited()) }
+    val focusManager = LocalFocusManager.current
 
-    viewModel.initializeTracks("star")
+    LaunchedEffect(Unit) {
+        viewModel.initializeTracks("star")
+        viewModel.updateLastVisited()
+    }
 
     LaunchedEffect(tracks, searchQuery) {
         coroutineScope {
@@ -48,9 +53,7 @@ fun TrackCatalogScreen(
         }
     }
 
-    val focusManager = LocalFocusManager.current
-
-    Box(
+    Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
@@ -60,7 +63,6 @@ fun TrackCatalogScreen(
                 }
             }
     ) {
-
         Column {
             SearchBar(
                 query = searchQuery,
@@ -73,6 +75,7 @@ fun TrackCatalogScreen(
             )
             if (!isFocused or searchQuery.isNotEmpty()) {
                 TrackList(
+                    lastVisited = lastVisited,
                     tracks = filteredTracks,
                     onToggleFavorite = { track ->
                         viewModel.setFavoriteTrack(track.copy(isFavorite = !track.isFavorite))

@@ -1,11 +1,14 @@
 package com.appetiser.trackcatalog.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -28,11 +31,25 @@ fun SearchBar(
         onValueChange = onQueryChange,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Search
+            imeAction = ImeAction.Search,
+            autoCorrectEnabled = false
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                focusManager.clearFocus()
+            }
         ),
         placeholder = {
             Text(
-                text = "Search"
+                text = "Search",
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "icon search query",
+                tint = MaterialTheme.colorScheme.onSurface
             )
         },
         trailingIcon = {
@@ -43,7 +60,8 @@ fun SearchBar(
                 }) {
                     Icon(
                         imageVector = Icons.Default.Clear,
-                        contentDescription = "clear search query"
+                        contentDescription = "clear search query",
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
