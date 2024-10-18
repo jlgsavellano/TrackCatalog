@@ -7,6 +7,7 @@ import com.appetiser.trackcatalog.data.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -20,8 +21,8 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(appContext: Context): AppDatabase =
-        Room.databaseBuilder(appContext, AppDatabase::class.java, "track_database").build()
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "track_database").build()
 
     @Provides
     fun provideTrackDao(database: AppDatabase): TrackDao =
