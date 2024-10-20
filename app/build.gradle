@@ -71,11 +71,16 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.mockito.core)
+    implementation(libs.mockito.inline)
+    implementation(libs.androidx.core.testing)
+    implementation(libs.kotlinx.coroutines.test)
 
     kapt(libs.dagger.hilt.compiler)
     kapt(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
+    testImplementation(libs.dagger.hilt.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation platform(libs.androidx.compose.bom)

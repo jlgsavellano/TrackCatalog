@@ -20,4 +20,4 @@ Sample project in Kotlin Android, using these tech. stacks:
 </div>
 <br />
 
-While this project demonstrates the core functionalities, there are several areas that require enhancement, particularly in the user interface. Future iterations will focus on refining the UI to enhance usability and overall user experience.
+While this project demonstrates the core functionalities, there are several areas that require enhancement, particularly in the user interface. Future iterations will focus on refining the UI to enhance usability and overall user experience. Additionally, unit tests are also needed to ensure the robustness and reliability of the codebase.
