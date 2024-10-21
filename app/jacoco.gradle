@@ -1,0 +1,49 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+def exclusions = [
+        '**/R.class',
+        '**/R$*.class',
+        '**/BuildConfig.*',
+        '**/Manifest*.*',
+        '**/*Test*.*',
+        'android/**/*.*',
+        '**/*Dagger.*'
+]
+
+tasks.withType(Test).configureEach {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+tasks.register("jacocoTestReport", JacocoReport) {
+    dependsOn("testDevDebugUnitTest")
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+
+    sourceDirectories.setFrom(fileTree(
+            dir: "${project.projectDir}/src/main/java")
+    )
+
+    classDirectories.setFrom(files(
+            fileTree(
+                    dir: "${project.projectDir}/build/intermediates/javac/devDebug",
+                    excludes: exclusions
+            ),
+            fileTree(
+                    dir: "${project.projectDir}/build/tmp/kotlin-classes/devDebug",
+                    excludes: exclusions
+            )
+    ))
+
+    executionData.setFrom(fileTree(
+            dir: "${project.projectDir}/build/jacoco",
+            includes: ["testDevDebugUnitTest.exec"]
+    ))
+}

@@ -6,6 +6,8 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+apply from: 'jacoco.gradle'
+
 android {
     namespace 'com.appetiser.trackcatalog'
     compileSdk 34
@@ -26,19 +28,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     flavorDimensions += "version"
     productFlavors {
         create("dev") {
             buildConfigField 'String', 'API_URL', '"https://itunes.apple.com/"'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = '11'
     }
+
     buildFeatures {
         compose true
         buildConfig true
