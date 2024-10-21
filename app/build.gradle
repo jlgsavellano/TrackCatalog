@@ -22,25 +22,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-            def localProperties = new Properties()
-            localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-
-            storeFile file('../trackcatalog.jks')
-            storePassword localProperties['storePassword']
-            keyAlias 'trackcatalog'
-            keyPassword localProperties['keyPassword']
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
 
