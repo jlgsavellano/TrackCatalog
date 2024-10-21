@@ -11,7 +11,7 @@ Sample project in Kotlin Android, using these tech. stacks:
 - BitRise
 
 ## Installation
-You can install the artifact of this project by scanning the QR code or by clicking download link below
+You can install the artifact of this project by clicking the download link below
 <br /><br />
 [![Download Track Catalog](https://img.shields.io/badge/Download-Track%20Catalog-green.svg)](https://app.bitrise.io/app/b28fffa9-8818-41ca-99a8-4c39cb5aea7d/installable-artifacts/cdb99dba53b961cb/public-install-page/8ccce40e72c8a3d0cb1b3d0c1a026874)
 
